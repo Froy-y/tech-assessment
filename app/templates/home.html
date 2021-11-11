@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Welcome to Planner!</h1>
+
+<div class="divider black">
+</div>
+
+<h4>
+    Planner is a website where you can keep track of your reservations. We even have a feature that lets you specify the listing / venue in which you have the reservation!
+</h4>
+
+<h2>
+    Start your journey with us and create your very first
+    <a class="res_home" href="{% url 'reservation_create' %}"> reservation</a>!
+</h2>
+
+<h2>
+    Been here before? Sweet, go check out your
+    <a class="res_home" href="{% url 'reservations' %}"> reservation list!</a>!
+</h2>
+{% endblock %}

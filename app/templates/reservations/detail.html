@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Res Details</h1>
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <span class="name">
+                    {{reservations.name}}'s Reservation
+                </span>
+                <p>
+                    <span class="name">Check-In: {{reservations.check_in}}</span>
+                </p>
+                <br />
+                <p>
+                    <span class="name">Check-Out: {{reservations.check_out}}</span
+                </p>
+                <br />
+                <p>
+                    <span class="name">Total Reservation Time: {{ reservations.date_difference }} </span>
+                </p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'reservation_update' reservations.id %}" class="waves-effect waves-light btn-flat">Edit</a>
+                <a href="{% url 'reservation_delete' reservations.id %}" class="waves-effect waves-light btn-flat">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col s6">
+        <h3>
+            {{ reservations.name }}'s Streaming listings
+        </h3>
+        {% if reservations.listing.count %}
+            {% for plat in reservations.listing.all %}
+            <a href="{% url 'listing_details' plat.id %}" class="indexCards waves-effect waves-light">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-title">
+                        <span>{{ plat.name }}</span>
+                    </div>
+                    <div class="card-title">
+                        <span>{{ plat.address }}, {{ plat.zipcode }}</span>
+                    </div>
+                    {% if plat.amenities %}
+                        <div class="card-title">
+                            <span>This listing has amenities!</span>
+                        </div>
+            {% endif %}
+                </div>
+                </a>
+                <div class="card-action">
+                    <form action="{% url 'unassoc_listing' reservations.id plat.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-floating btn-medium waves-effect waves-light red">X</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h5>No listings :(</h5>
+        {% endif %}
+    </div>
+    <div class="col s6">
+        <h3>Avaliable listings</h3>
+        {% if listings.count %}
+            {% for plat in listings.all %}
+                <a href="{% url 'listing_details' plat.id %}" class="indexCards waves-effect waves-light">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-title">
+                            <span>{{ plat.name }}</span>
+                        </div>
+                        <div class="card-title">
+                            <span>{{ plat.address }}, {{ plat.zipcode }}</span>
+                        </div>
+                        {% if plat.amenities %}
+                            <div class="card-title">
+                                <span>This listing has amenities!</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </a>
+                    <div class="card-action">
+                        <form action="{% url 'assoc_listing' reservations.id plat.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-floating btn-medium waves-effect waves-light teal lighten-3 plus_sign">+</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>{{reservations.name}} Already Has All listings Avaliable</h5>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+</div>
+<a onClick="javascript:history.go(-1);" value=button class="waves-effect waves-light btn-flat card">Back</a>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<h1>All Listings</h1>
+{% if listing_list.count > 0 %}
+    {% for listing in listing_list%}
+        <a href="{% url 'listing_details' listing.id %}" class="indexCards waves-effect waves-light card">
+        <div class="indexCards">
+            <div class="card-content listingName">
+                <span>{{listing.name}}</span>
+            </div>
+            <div class="card-content">
+                <span>{{listing.address}}, {{listing.zipcode}}</span>
+            </div>
+            {% if listing.amenities %}
+                <div class="card-content">
+                    <span>This listing has amenities!</span>
+                </div>
+            {% endif %}
+        </div>
+        </a>
+    {% endfor %}
+    <a href="{% url 'listing_create' %}" value="Submit!" class="waves-effect waves-light btn-flat card">Create a new listing</a>
+{% else %}
+    <h2>Oh no you dont have any listings! Lets make <a class="res_home" href="{% url 'listing_create' %}"> one! </a></h2>
+{% endif %}
+    <a onClick="javascript:history.go(-1);" value=button class="waves-effect waves-light btn-flat card">Back</a>
+{% endblock %}

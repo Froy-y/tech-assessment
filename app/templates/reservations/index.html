@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Reservations</h1>
+{% if reservations.count > 0 %}
+    <div class="row">
+        <div class="col">
+            <div class="card-content">
+                <form method="get">
+                    {{myFilter.form}}
+                    <button class="btn btn-primary" type="submit">
+                        Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% for reservation in reservations %}
+        <a href="{% url 'reservation_details' reservation.id %}" class="indexCards waves-effect waves-light card">
+        <div>
+            <div class="card-content">
+                <span class="card-title" id="indexName">
+                    {{reservation.name}}
+                </span>
+                <p class="desc">
+                    name: {{reservation.name}}
+                </p>
+                <p class="seasons">
+                    check in date: {{reservation.check_in}}
+                </p>
+                <p class="seasons">
+                    check out date: {{reservation.check_out}}
+                </p>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+{% else %}
+    <h2>
+        Oh no you dont have any reservations! Lets make 
+        <a class="res_home" href="{% url 'reservation_create' %}"> one! </a>
+    </h2>
+{% endif %}
+    <a onClick="javascript:history.go(-1);" value=button class="waves-effect waves-light btn-flat card">Back</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{{listing.name}}'s Details</h1>
+<div class="row">
+    <div class="col s6 col-offset-3">
+        <div class="card">
+            <div class="card-content">
+                <span>
+                    {{listing.name}}
+                </span>
+            </div>
+            <div class="card-content">
+                <span>
+                    {{listing.address}}, {{listing.zipcode}}
+                </span>
+            </div>
+            <div class="card-content">
+                <span>
+                    {{listing.amenities}}
+                </span>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'listing_update' listing.id %}">Edit</a>
+                <a href="{% url 'listing_delete' listing.id %}">Delete</a>
+            </div>
+        </div>
+    <a onClick="javascript:history.go(-1);" value=button class="waves-effect waves-light btn-flat card">Back</a>
+    </div>
+</div>
+{% endblock %}
