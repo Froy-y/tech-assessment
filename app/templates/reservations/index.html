@@ -35,6 +35,7 @@
         </div>
         </a>
     {% endfor %}
+    <a href="{% url 'reservation_create' %}" value="Submit!" class="waves-effect waves-light btn-flat card">Create a new reservation</a>
 {% else %}
     <h2>
         Oh no you dont have any reservations! Lets make 
